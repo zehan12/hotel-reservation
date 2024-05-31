@@ -1,10 +1,16 @@
 package main
 
-import "github.com/gofiber/fiber/v2"
+import (
+	"flag"
+
+	"github.com/gofiber/fiber/v2"
+)
 
 func main() {
 	// creating app
 	app := fiber.New()
+
+	port := flag.String("port", ":3000", "The API server port")
 
 	// group routes to v1
 	apiv1 := app.Group("/api/v1")
@@ -14,7 +20,7 @@ func main() {
 	apiv1.Get("/", handleIndex)
 
 	// server listing
-	app.Listen(":3000")
+	app.Listen(*port)
 }
 
 func handleHome(c *fiber.Ctx) error {
