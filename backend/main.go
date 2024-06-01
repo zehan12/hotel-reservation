@@ -4,6 +4,7 @@ import (
 	"flag"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/zehan12/hotel-reservation/backend/api"
 )
 
 func main() {
@@ -18,6 +19,9 @@ func main() {
 	// routes
 	app.Get("/", handleHome)
 	apiv1.Get("/", handleIndex)
+
+	// user routes
+	apiv1.Get("/user", api.HandleGetUser)
 
 	// server listing
 	app.Listen(*port)
