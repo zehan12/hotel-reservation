@@ -35,7 +35,7 @@ func main() {
 	fmt.Println("Connected to MongoDB!")
 	client.Database(dbName)
 
-	// creating app
+	// create fiber app
 	app := fiber.New()
 
 	port := flag.String("port", ":3000", "The API server port")
@@ -43,12 +43,13 @@ func main() {
 	// group routes to v1
 	apiv1 := app.Group("/api/v1")
 
-	// routes
+	// index routes
 	app.Get("/", handleHome)
 	apiv1.Get("/", handleIndex)
 
 	// user routes
-	apiv1.Get("/user", api.HandleGetUser)
+	userRoutes := apiv1.Group("/user")
+	userRoutes.Get("/", api.HandleGetUser)
 
 	// server listing
 	app.Listen(*port)
